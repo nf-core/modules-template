@@ -1,0 +1,35 @@
+# Questions for copier CLI
+org_name:
+    type: str
+    help: What is your organization name? (This should match your github user/org path.)
+    placeholder: demo-org
+    required: true
+    validator: >-
+        {% if not (org_name | regex_search('^[a-zA-Z][a-zA-Z0-9\-_]+$')) %}
+        org_name must start with a letter, followed one or more letters, digits, underscores or dashes.
+        {% endif %}
+
+short_org_name:
+    type: str
+    help: What is your abbreviated org name? (defines the path for your modules e.g. `modules/<short_org_name>/tool`)
+    placeholder: demo-org
+    required: true
+    validator: >-
+        {% if not (org_name | regex_search('^[a-z]+$')) %}
+        short_org_name must be all lowercase letters.
+        {% endif %}
+
+repo_name:
+    type: str
+    help: What is the name of your modules library?
+    required: true
+    default: modules
+
+description:
+    type: str
+    help: What is the description of your modules library?
+    required: true
+    default: An nf-core modules repository hosting Nextflow DSL2 modules for the {{ org_name }} organization.
+
+# Copier configuration options
+_subdirectory: nf-modules-template

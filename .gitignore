@@ -1,0 +1,17 @@
+*.code-workspace
+*.pyc
+*.pyo
+.*.sw?
+.DS_Store
+.nextflow*
+.nf-test.log
+.nf-test/
+.screenrc
+__pycache__
+output/
+results/
+test.xml
+test_output/
+tests/data/
+work/
+.github/CODEOWNERS-tmp
