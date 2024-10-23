@@ -136,7 +136,7 @@ jobs:
           echo {% raw %}${{ steps.outputs.outputs.subworkflows }}{% endraw %}
 
   nf-core-lint-modules:
-    runs-on: {% raw %}${{ github.event.inputs.runners  || 'self-hosted' }}{% endraw %}
+    runs-on: ubuntu-latest
     name: nf-core-lint-modules
     needs: [pytest-changes, nf-test-changes]
     if: {% raw %}${{ (needs.pytest-changes.outputs.modules != '[]') || ( needs.nf-test-changes.outputs.modules != '[]') }}{% endraw %}
@@ -220,7 +220,7 @@ jobs:
         run: nf-core subworkflows lint {% raw %}${{ matrix.tags }}{% endraw %}
 
   pytest:
-    runs-on: {% raw %}${{ github.event.inputs.runners  || 'self-hosted' }}{% endraw %}
+    runs-on: ubuntu-latest
     name: pytest
     needs: [pytest-changes]
     if: needs.pytest-changes.outputs.tags != '[]'
@@ -330,7 +330,7 @@ jobs:
             ! {% raw %}${{ github.workspace }}{% endraw %}/.singularity
 
   nf-test:
-    runs-on: {% raw %}${{ github.event.inputs.runners  || 'self-hosted' }}{% endraw %}
+    runs-on: ubuntu-latest
     name: nf-test
     needs: [nf-test-changes]
     if: ( needs.nf-test-changes.outputs.paths != '[]' )
