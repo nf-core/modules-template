@@ -31,5 +31,11 @@ description:
     required: true
     default: An nf-core modules repository hosting Nextflow DSL2 modules for the {{ org_name }} organization.
 
+default_branch:
+    type: str
+    help: What is the default branch for your repository?
+    required: true
+    default: main
+
 # Copier configuration options
 _subdirectory: nf-modules-template

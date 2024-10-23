@@ -3,3 +3,4 @@ description: An nf-core modules repository hosting Nextflow DSL2 modules for the
 org_name: kenibrewer
 repo_name: modules
 short_org_name: kbrewer
+default_branch: main
