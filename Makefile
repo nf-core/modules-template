@@ -1,4 +1,4 @@
 .PHONY: $(MAKECMDGOALS)
 
 demo:
-	@copier copy -a tests/demo-answers.yml --defaults . demo
+	@copier copy --data-file tests/demo-answers.yml --defaults . demo
