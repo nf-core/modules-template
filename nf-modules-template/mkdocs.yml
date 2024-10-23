@@ -11,7 +11,8 @@ validation:
 
 nav:
 - Home:
-  - Overview: ../README.md
+  - Overview: ./index.md
+  - License: ./license.md
 
 theme:
   name: material

@@ -8,11 +8,17 @@ trim_trailing_whitespace = true
 indent_size = 4
 indent_style = space
 
-[*.{md,yml,yaml,cff}]
+[*.{yml,yaml,cff}]
 indent_size = 2
 
-[*.{md,yml,yaml,cff}.jinja]
+[*.{md}]
+indent_size = 4
+
+[*.{yml,yaml,cff}.jinja]
 indent_size = 2
+
+[*.{md}.jinja]
+indent_size = 4
 
 [*.nf.test]
 insert_final_newline = false

@@ -13,12 +13,7 @@ nav:
 - Home:
   - Overview: index.md
   - License: license.md
-- Usage:
-  - Requirements: requirements.md
-  - Generating a project: generate.md
-  - Working on a project: work.md
-  - Updating a project: update.md
-- Author's website: https://kenibrewer.com/
+- Author's website: https://kenbrewer.com/
 
 theme:
   name: material
