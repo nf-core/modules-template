@@ -11,5 +11,8 @@ indent_style = space
 [*.{md,yml,yaml,cff}]
 indent_size = 2
 
+[{.copier-answers.yml,docs/*.md}]
+indent_size = 4
+
 [*.nf.test]
 insert_final_newline = false

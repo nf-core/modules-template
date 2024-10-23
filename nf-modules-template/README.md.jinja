@@ -27,110 +27,114 @@ We use a helper command in the `nf-core/tools` package that uses the GitHub API 
 1. Install the latest version of [`nf-core/tools`](https://github.com/nf-core/tools#installation) (`>=2.0`)
 2. List the available modules:
 
-    ```bash
-    nf-core modules --git-remote https://github.com/{{org_name}}/{{repo_name}}.git list remote
-    ```
-    ```console
+   ```bash
+   nf-core modules --git-remote https://github.com/{{org_name}}/{{repo_name}}.git list remote
+   ```
 
-                                            ,--./,-.
-            ___     __   __   __   ___     /,-._.--~\
-    |\ | |__  __ /  ` /  \ |__) |__         }  {
-    | \| |       \__, \__/ |  \ |___     \`-._,-`-,
-                                            `._,._,'
+   ```console
 
-    nf-core/tools version 3.0.1 - https://nf-co.re
+                                ,--./,-.
+        ___     __   __   __   ___     /,-._.--~\
+   |\ | |__  __ /  ` /  \ |__) |__         }  {
+   | \| |       \__, \__/ |  \ |___     \`-._,-`-,
+                                `._,._,'
 
-    INFO     Modules available from https://github.com/{{org_name}}/{{repo_name}}.git (main):
+   nf-core/tools version 3.0.1 - https://nf-co.re
 
-    ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
-    ┃ Module Name                    ┃
-    ┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┩
-    │ examplemodule       │
-    ..truncated..
-    ```
+   INFO     Modules available from https://github.com/{{org_name}}/{{repo_name}}.git (main):
+
+   ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+   ┃ Module Name                    ┃
+   ┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┩
+   │ examplemodule       │
+   ..truncated..
+   ```
 
 3. Install the module in your pipeline directory:
 
-    ```bash
-    nf-core modules --git-remote https://github.com/{{org_name}}/{{repo_name}}.git install examplemodule
-    ```
-    ```console
+   ```bash
+   nf-core modules --git-remote https://github.com/{{org_name}}/{{repo_name}}.git install examplemodule
+   ```
 
-                                            ,--./,-.
-            ___     __   __   __   ___     /,-._.--~\
-    |\ | |__  __ /  ` /  \ |__) |__         }  {
-    | \| |       \__, \__/ |  \ |___     \`-._,-`-,
-                                            `._,._,'
+   ```console
 
-    nf-core/tools version 3.0.1 - https://nf-co.re
+                                ,--./,-.
+        ___     __   __   __   ___     /,-._.--~\
+   |\ | |__  __ /  ` /  \ |__) |__         }  {
+   | \| |       \__, \__/ |  \ |___     \`-._,-`-,
+                                `._,._,'
 
-    INFO     Installing 'examplemodule'
-    INFO     Use the following statement to include this module:
+   nf-core/tools version 3.0.1 - https://nf-co.re
 
-        include { EXAMPLEMODULE } from '../modules/{{short_org_name}}/examplemodule/main'
-    ```
+   INFO     Installing 'examplemodule'
+   INFO     Use the following statement to include this module:
+
+      include { EXAMPLEMODULE } from '../modules/{{short_org_name}}/examplemodule/main'
+   ```
 
 4. Import the module in your Nextflow script:
 
-    ```nextflow
-    #!/usr/bin/env nextflow
+   ```nextflow
+   #!/usr/bin/env nextflow
 
-    nextflow.enable.dsl = 2
+   nextflow.enable.dsl = 2
 
-    include { EXAMPLEMODULE } from '../modules/{{short_org_name}}/examplemodule/main'
-    ```
+   include { EXAMPLEMODULE } from '../modules/{{short_org_name}}/examplemodule/main'
+   ```
 
 5. Remove the module from the pipeline repository if required:
 
-    ```bash
-    nf-core modules --git-remote https://github.com/{{org_name}}/{{repo_name}}.git remove examplemodule
-    ```
-    ```console
+   ```bash
+   nf-core modules --git-remote https://github.com/{{org_name}}/{{repo_name}}.git remove examplemodule
+   ```
 
-                                            ,--./,-.
-            ___     __   __   __   ___     /,-._.--~\
-    |\ | |__  __ /  ` /  \ |__) |__         }  {
-    | \| |       \__, \__/ |  \ |___     \`-._,-`-,
-                                            `._,._,'
+   ```console
 
-    nf-core/tools version 3.0.1 - https://nf-co.re
+                                ,--./,-.
+        ___     __   __   __   ___     /,-._.--~\
+   |\ | |__  __ /  ` /  \ |__) |__         }  {
+   | \| |       \__, \__/ |  \ |___     \`-._,-`-,
+                                `._,._,'
 
-    INFO     Removed files for 'examplemodule' and its dependencies 'examplemodule'.
-    ```
+   nf-core/tools version 3.0.1 - https://nf-co.re
+
+   INFO     Removed files for 'examplemodule' and its dependencies 'examplemodule'.
+   ```
 
 6. Check that a locally installed nf-core module is up-to-date compared to the one hosted in this repo:
 
-    ```bash
-    nf-core modules --git-remote https://github.com/{{org_name}}/{{repo_name}}.git lint examplemodule
-    ```
-    ```console
+   ```bash
+   nf-core modules --git-remote https://github.com/{{org_name}}/{{repo_name}}.git lint examplemodule
+   ```
 
-                                            ,--./,-.
-            ___     __   __   __   ___     /,-._.--~\
-    |\ | |__  __ /  ` /  \ |__) |__         }  {
-    | \| |       \__, \__/ |  \ |___     \`-._,-`-,
-                                            `._,._,'
+   ```console
 
-        nf-core/tools version 3.0.1 - https://nf-co.re
+                                ,--./,-.
+        ___     __   __   __   ___     /,-._.--~\
+   |\ | |__  __ /  ` /  \ |__) |__         }  {
+   | \| |       \__, \__/ |  \ |___     \`-._,-`-,
+                                `._,._,'
 
-        INFO     Linting pipeline: '.'
-        INFO     Linting module: 'examplemodule'
+      nf-core/tools version 3.0.1 - https://nf-co.re
 
-        ╭─ [!] 6 Module Test Warnings ──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╮
-        │              ╷                             ╷                                                                                                                                          │
-        │ Module name  │ File path                   │ Test message                                                                                                                             │
-        │╶─────────────┼─────────────────────────────┼─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╴│
-        │ examplemodule       │ modules/{{short_org_name}}/examplemodule/main.nf  │ Unable to connect to container registry, code:  403, url: <https://www.docker.com/{{short_org_name}}cc/examplemodule-suite:2.0.9>                                │
-        │ examplemodule       │ modules/{{short_org_name}}/examplemodule/main.nf  │ Container versions do not match                                                                                                          │                                                                  │
-        │              ╵                             ╵                                                                                                                                          │
-        ╰───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
-        ╭───────────────────────╮
-        │ LINT RESULTS SUMMARY  │
-        ├───────────────────────┤
-        │ [✔]  59 Tests Passed  │
-        │ [!]   6 Test Warnings │
-        │ [✗]   0 Tests Failed  │
-    ```
+      INFO     Linting pipeline: '.'
+      INFO     Linting module: 'examplemodule'
+
+      ╭─ [!] 6 Module Test Warnings ──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╮
+      │              ╷                             ╷                                                                                                                                          │
+      │ Module name  │ File path                   │ Test message                                                                                                                             │
+      │╶─────────────┼─────────────────────────────┼─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╴│
+      │ examplemodule       │ modules/{{short_org_name}}/examplemodule/main.nf  │ Unable to connect to container registry, code:  403, url: <https://www.docker.com/{{short_org_name}}cc/examplemodule-suite:2.0.9>                                │
+      │ examplemodule       │ modules/{{short_org_name}}/examplemodule/main.nf  │ Container versions do not match                                                                                                          │                                                                  │
+      │              ╵                             ╵                                                                                                                                          │
+      ╰───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+      ╭───────────────────────╮
+      │ LINT RESULTS SUMMARY  │
+      ├───────────────────────┤
+      │ [✔]  59 Tests Passed  │
+      │ [!]   6 Test Warnings │
+      │ [✗]   0 Tests Failed  │
+   ```
 
 ## Citation
 

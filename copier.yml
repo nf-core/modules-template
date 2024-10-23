@@ -1,80 +1,80 @@
 # Questions for copier CLI
 org_name:
-    type: str
-    help: What is your organization name? (This should match your github user/org path.)
-    placeholder: demo-org
-    required: true
-    validator: >-
-        {% if not (org_name | regex_search('^[a-zA-Z][a-zA-Z0-9\-_]+$')) %}
-        org_name must start with a letter, followed one or more letters, digits, underscores or dashes.
-        {% endif %}
+  type: str
+  help: What is your organization name? (This should match your github user/org path.)
+  placeholder: demo-org
+  required: true
+  validator: >-
+    {% if not (org_name | regex_search('^[a-zA-Z][a-zA-Z0-9\-_]+$')) %}
+    org_name must start with a letter, followed one or more letters, digits, underscores or dashes.
+    {% endif %}
 
 short_org_name:
-    type: str
-    help: What is your abbreviated org name? (defines the path for your modules e.g. `modules/<short_org_name>/tool`)
-    placeholder: demo-org
-    required: true
-    validator: >-
-        {% if not (org_name | regex_search('^[a-z]+$')) %}
-        short_org_name must be all lowercase letters.
-        {% endif %}
+  type: str
+  help: What is your abbreviated org name? (defines the path for your modules e.g. `modules/<short_org_name>/tool`)
+  placeholder: demo-org
+  required: true
+  validator: >-
+    {% if not (org_name | regex_search('^[a-z]+$')) %}
+    short_org_name must be all lowercase letters.
+    {% endif %}
 
 repo_name:
-    type: str
-    help: What is the name of your modules library?
-    required: true
-    default: modules
+  type: str
+  help: What is the name of your modules library?
+  required: true
+  default: modules
 
 description:
-    type: str
-    help: What is the description of your modules library?
-    required: true
-    default: An nf-core modules repository hosting Nextflow DSL2 modules for the {{ org_name }} organization.
+  type: str
+  help: What is the description of your modules library?
+  required: true
+  default: An nf-core modules repository hosting Nextflow DSL2 modules for the {{ org_name }} organization.
 
 default_branch:
-    type: str
-    help: What is the default branch for your repository?
-    required: true
-    default: main
+  type: str
+  help: What is the default branch for your repository?
+  required: true
+  default: main
 
 copyright_license:
   type: str
   help: Your project's license
   default: ISC License
   choices:
-  - Academic Free License v3.0
-  - Apache License 2.0
-  - Artistic License 2.0
-  - BSD 2-Clause "Simplified" License
-  - BSD 3-Clause Clear License
-  - BSD 3-Clause "New" or "Revised" License
-  - Boost Software License 1.0
-  - Creative Commons Attribution 4.0
-  - Creative Commons Attribution Share Alike 4.0
-  - Creative Commons Zero v1.0 Universal
-  - Do What The F*ck You Want To Public License
-  - Educational Community License v2.0
-  - Eclipse Public License 1.0
-  - Eclipse Public License 2.0
-  - European Union Public License 1.1
-  - European Union Public License 1.2
-  - GNU Affero General Public License v3.0
-  - GNU General Public License v2.0
-  - GNU General Public License v3.0
-  - GNU Lesser General Public License v2.1
-  - GNU Lesser General Public License v3.0
-  - ISC License
-  - LaTeX Project Public License v1.3c
-  - MIT License
-  - Mozilla Public License 2.0
-  - Microsoft Public License
-  - Microsoft Reciprocal License
-  - University of Illinois/NCSA Open Source License
-  - SIL Open Font License 1.1
-  - Open Software License 3.0
-  - PostgreSQL License
-  - The Unlicense
-  - zlib License
+    - Academic Free License v3.0
+    - Apache License 2.0
+    - Artistic License 2.0
+    - BSD 2-Clause "Simplified" License
+    - BSD 3-Clause Clear License
+    - BSD 3-Clause "New" or "Revised" License
+    - Boost Software License 1.0
+    - Creative Commons Attribution 4.0
+    - Creative Commons Attribution Share Alike 4.0
+    - Creative Commons Zero v1.0 Universal
+    - Do What The F*ck You Want To Public License
+    - Educational Community License v2.0
+    - Eclipse Public License 1.0
+    - Eclipse Public License 2.0
+    - European Union Public License 1.1
+    - European Union Public License 1.2
+    - GNU Affero General Public License v3.0
+    - GNU General Public License v2.0
+    - GNU General Public License v3.0
+    - GNU Lesser General Public License v2.1
+    - GNU Lesser General Public License v3.0
+    - ISC License
+    - LaTeX Project Public License v1.3c
+    - MIT License
+    - Mozilla Public License 2.0
+    - Microsoft Public License
+    - Microsoft Reciprocal License
+    - University of Illinois/NCSA Open Source License
+    - SIL Open Font License 1.1
+    - Open Software License 3.0
+    - PostgreSQL License
+    - The Unlicense
+    - zlib License
 
 # Copier configuration options
 _subdirectory: nf-modules-template

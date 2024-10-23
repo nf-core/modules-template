@@ -6,24 +6,24 @@ This is a [copier](https://copier.readthedocs.io/en/stable/) template for creati
 
 1. Install copier:
 
-    ```bash
-    pipx install copier
-    ```
+   ```bash
+   pipx install copier
+   ```
 
 2. Run copier:
 
-    ```bash
-    copier gh:kenibrewer/nf-modules-template ./my-new-modules-library
-    ```
+   ```bash
+   copier gh:kenibrewer/nf-modules-template ./my-new-modules-library
+   ```
 
 3. Follow the prompts to fill in the template values.
 
 4. Initialize the new modules library as a git repository:
 
-    ```bash
-    cd my-new-modules-library
-    bash ./project_init.sh
-    ```
+   ```bash
+   cd my-new-modules-library
+   bash ./project_init.sh
+   ```
 
 ## Acknowledgements
 

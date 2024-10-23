@@ -21,10 +21,10 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  NXF_SINGULARITY_CACHEDIR:  {% raw %}${{ github.workspace }}{% endraw %}/.singularity
-  NXF_SINGULARITY_LIBRARYDIR:  {% raw %}${{ github.workspace }}{% endraw %}/.singularity
-  SENTIEON_LICENSE_MESSAGE:  {% raw %}${{ secrets.SENTIEON_LICENSE_MESSAGE }}{% endraw %}
-  SENTIEON_ENCRYPTION_KEY:  {% raw %}${{ secrets.SENTIEON_ENCRYPTION_KEY }}{% endraw %}
+  NXF_SINGULARITY_CACHEDIR: {% raw %}${{ github.workspace }}{% endraw %}/.singularity
+  NXF_SINGULARITY_LIBRARYDIR: {% raw %}${{ github.workspace }}{% endraw %}/.singularity
+  SENTIEON_LICENSE_MESSAGE: {% raw %}${{ secrets.SENTIEON_LICENSE_MESSAGE }}{% endraw %}
+  SENTIEON_ENCRYPTION_KEY: {% raw %}${{ secrets.SENTIEON_ENCRYPTION_KEY }}{% endraw %}
 
 jobs:
   pre-commit:
@@ -75,9 +75,9 @@ jobs:
     name: pytest-changes
     runs-on: ubuntu-latest
     outputs:
-      tags:  {% raw %}${{ steps.filter.outputs.changes }}{% endraw %}
-      modules:  {% raw %}${{ steps.tags.outputs.modules }}{% endraw %}
-      subworkflows:  {% raw %}${{ steps.tags.outputs.subworkflows }}{% endraw %}
+      tags: {% raw %}${{ steps.filter.outputs.changes }}{% endraw %}
+      modules: {% raw %}${{ steps.tags.outputs.modules }}{% endraw %}
+      subworkflows: {% raw %}${{ steps.tags.outputs.subworkflows }}{% endraw %}
     steps:
       - uses: actions/checkout@eef61447b9ff4aafe5dcd4e0bbf5d482be7e7871 # v4
         with:
@@ -98,17 +98,17 @@ jobs:
 
       - name: debug
         run: |
-          echo  {% raw %}${{ steps.tags.outputs.modules }}{% endraw %}
-          echo  {% raw %}${{ steps.tags.outputs.subworkflows }}{% endraw %}
+          echo {% raw %}${{ steps.tags.outputs.modules }}{% endraw %}
+          echo {% raw %}${{ steps.tags.outputs.subworkflows }}{% endraw %}
 
   nf-test-changes:
     name: nf-test-changes
     runs-on: ubuntu-latest
     outputs:
       # Expose detected tags as 'modules' and 'workflows' output variables
-      paths:  {% raw %}${{ steps.list.outputs.components }}{% endraw %}
-      modules:  {% raw %}${{ steps.outputs.outputs.modules }}{% endraw %}
-      subworkflows:  {% raw %}${{ steps.outputs.outputs.subworkflows}}{% endraw %}
+      paths: {% raw %}${{ steps.list.outputs.components }}{% endraw %}
+      modules: {% raw %}${{ steps.outputs.outputs.modules }}{% endraw %}
+      subworkflows: {% raw %}${{ steps.outputs.outputs.subworkflows}}{% endraw %}
       # Prod for version bumping
 
     steps:
@@ -120,8 +120,8 @@ jobs:
         id: list
         uses: adamrtalbot/detect-nf-test-changes@7c8be3ffd0d6538312b363c8c949dbbf5f26c3dd # v0.0.4
         with:
-          head:  {% raw %}${{ github.sha }}{% endraw %}
-          base:  {% raw %}${{ github.event.pull_request.base.sha || github.event.merge_group.base_sha }}{% endraw %}
+          head: {% raw %}${{ github.sha }}{% endraw %}
+          base: {% raw %}${{ github.event.pull_request.base.sha || github.event.merge_group.base_sha }}{% endraw %}
           n_parents: 2
 
       - name: Separate modules and subworkflows
@@ -132,14 +132,14 @@ jobs:
 
       - name: debug
         run: |
-          echo  {% raw %}${{ steps.outputs.outputs.modules }}{% endraw %}
-          echo  {% raw %}${{ steps.outputs.outputs.subworkflows }}{% endraw %}
+          echo {% raw %}${{ steps.outputs.outputs.modules }}{% endraw %}
+          echo {% raw %}${{ steps.outputs.outputs.subworkflows }}{% endraw %}
 
   nf-core-lint-modules:
-    runs-on:  {% raw %}${{ github.event.inputs.runners  || 'self-hosted' }}{% endraw %}
+    runs-on: {% raw %}${{ github.event.inputs.runners  || 'self-hosted' }}{% endraw %}
     name: nf-core-lint-modules
     needs: [pytest-changes, nf-test-changes]
-    if:  {% raw %}${{ (needs.pytest-changes.outputs.modules != '[]') || ( needs.nf-test-changes.outputs.modules != '[]') }}{% endraw %}
+    if: {% raw %}${{ (needs.pytest-changes.outputs.modules != '[]') || ( needs.nf-test-changes.outputs.modules != '[]') }}{% endraw %}
     strategy:
       fail-fast: false
       matrix:
@@ -160,9 +160,9 @@ jobs:
         id: cache-pip
         with:
           path: ~/.cache/pip
-          key:  {% raw %}${{ runner.os }}{% endraw %}-pip
+          key: {% raw %}${{ runner.os }}{% endraw %}-pip
           restore-keys: |
-             {% raw %}${{ runner.os }}{% endraw %}-pip
+            {% raw %}${{ runner.os }}{% endraw %}-pip
 
       - name: Install pip
         run: python -m pip install --upgrade pip
@@ -178,14 +178,14 @@ jobs:
       - name: Install nf-core tools development version
         run: python -m pip install --upgrade --force-reinstall git+https://github.com/nf-core/tools.git@dev
 
-      - name: Lint module  {% raw %}${{ matrix.tags }}{% endraw %}
-        run: nf-core modules lint  {% raw %}${{ matrix.tags }}{% endraw %}
+      - name: Lint module {% raw %}${{ matrix.tags }}{% endraw %}
+        run: nf-core modules lint {% raw %}${{ matrix.tags }}{% endraw %}
 
   nf-core-lint-subworkflows:
     runs-on: ubuntu-latest
     name: nf-core-lint-modules
     needs: [pytest-changes, nf-test-changes]
-    if:  {% raw %}${{ (needs.pytest-changes.outputs.subworkflows != '[]') || ( needs.nf-test-changes.outputs.subworkflows != '[]') }}{% endraw %}
+    if: {% raw %}${{ (needs.pytest-changes.outputs.subworkflows != '[]') || ( needs.nf-test-changes.outputs.subworkflows != '[]') }}{% endraw %}
     strategy:
       fail-fast: false
       matrix:
@@ -216,11 +216,11 @@ jobs:
       - name: Install nf-core tools development version
         run: python -m pip install --upgrade --force-reinstall git+https://github.com/nf-core/tools.git@dev
 
-      - name: Lint module  {% raw %}${{ matrix.tags }}{% endraw %}
-        run: nf-core subworkflows lint  {% raw %}${{ matrix.tags }}{% endraw %}
+      - name: Lint module {% raw %}${{ matrix.tags }}{% endraw %}
+        run: nf-core subworkflows lint {% raw %}${{ matrix.tags }}{% endraw %}
 
   pytest:
-    runs-on:  {% raw %}${{ github.event.inputs.runners  || 'self-hosted' }}{% endraw %}
+    runs-on: {% raw %}${{ github.event.inputs.runners  || 'self-hosted' }}{% endraw %}
     name: pytest
     needs: [pytest-changes]
     if: needs.pytest-changes.outputs.tags != '[]'
@@ -247,9 +247,9 @@ jobs:
         id: cache-pip-pytest
         with:
           path: ~/.cache/pip
-          key:  {% raw %}${{ runner.os }}{% endraw %}-pip-pytest
+          key: {% raw %}${{ runner.os }}{% endraw %}-pip-pytest
           restore-keys: |
-             {% raw %}${{ runner.os }}{% endraw %}-pip-pytest
+            {% raw %}${{ runner.os }}{% endraw %}-pip-pytest
 
       - name: Install Python dependencies
         run: python -m pip install --upgrade pip pytest-workflow cryptography
@@ -258,7 +258,7 @@ jobs:
         with:
           distribution: "temurin"
           java-version: "17"
-      - name: Setup Nextflow  {% raw %}${{ matrix.NXF_VER }}{% endraw %}
+      - name: Setup Nextflow {% raw %}${{ matrix.NXF_VER }}{% endraw %}
         uses: nf-core/setup-nextflow@v2
         with:
           version: " {% raw %}${{ matrix.NXF_VER }}{% endraw %}"
@@ -278,7 +278,7 @@ jobs:
         with:
           miniconda-version: "latest"
           channels: conda-forge,bioconda
-          python-version:  {% raw %}${{ matrix.python-version }}{% endraw %}
+          python-version: {% raw %}${{ matrix.python-version }}{% endraw %}
 
       - name: Conda setup
         run: |
@@ -294,7 +294,6 @@ jobs:
         if: env.SENTIEON_ENCRYPTION_KEY != null && env.SENTIEON_LICENSE_MESSAGE != null
         run: |
           nextflow secrets set SENTIEON_AUTH_DATA $(python3 tests/modules/nf-core/sentieon/license_message.py encrypt --key "{% raw %}${{ secrets.SENTIEON_ENCRYPTION_KEY }}" --message " ${{ secrets.SENTIEON_LICENSE_MESSAGE }}{% endraw %}")
-
 
       # Test the module
       - name: Run pytest-workflow
@@ -331,7 +330,7 @@ jobs:
             ! {% raw %}${{ github.workspace }}{% endraw %}/.singularity
 
   nf-test:
-    runs-on:  {% raw %}${{ github.event.inputs.runners  || 'self-hosted' }}{% endraw %}
+    runs-on: {% raw %}${{ github.event.inputs.runners  || 'self-hosted' }}{% endraw %}
     name: nf-test
     needs: [nf-test-changes]
     if: ( needs.nf-test-changes.outputs.paths != '[]' )
@@ -359,7 +358,7 @@ jobs:
       - name: Install nf-test
         uses: nf-core/setup-nf-test@v1
         with:
-          version:  {% raw %}${{ env.NFTEST_VER }}{% endraw %}
+          version: {% raw %}${{ env.NFTEST_VER }}{% endraw %}
 
       - name: Setup apptainer
         if: matrix.profile == 'singularity'
@@ -380,9 +379,9 @@ jobs:
         id: cache-pip-pdiff
         with:
           path: ~/.cache/pip
-          key:  {% raw %}${{ runner.os }}{% endraw %}-pip-pdiff
+          key: {% raw %}${{ runner.os }}{% endraw %}-pip-pdiff
           restore-keys: |
-             {% raw %}${{ runner.os }}{% endraw %}-pip-pdiff
+            {% raw %}${{ runner.os }}{% endraw %}-pip-pdiff
 
       - name: Install Python dependencies
         run: python -m pip install --upgrade pip pdiff cryptography
@@ -409,7 +408,7 @@ jobs:
         env:
           NFT_DIFF: "pdiff"
           NFT_DIFF_ARGS: "--line-numbers --width 120 --expand-tabs=2"
-          SENTIEON_LICSRVR_IP:  {% raw %}${{ secrets.SENTIEON_LICSRVR_IP }}{% endraw %}
+          SENTIEON_LICSRVR_IP: {% raw %}${{ secrets.SENTIEON_LICSRVR_IP }}{% endraw %}
           SENTIEON_AUTH_MECH: "GitHub Actions - token"
         run: |
           # use "docker_self_hosted" if it runs on self-hosted runner and matrix.profile=docker
@@ -424,7 +423,7 @@ jobs:
             --profile= {% raw %}${{ matrix.profile }}{% endraw %} \
             --tap=test.tap \
             --verbose \
-             {% raw %}${{ matrix.path }}{% endraw %}
+            {% raw %}${{ matrix.path }}{% endraw %}
 
       - uses: pcolby/tap-summary@0959cbe1d4422e62afc65778cdaea6716c41d936 # v1
         with:
@@ -452,14 +451,14 @@ jobs:
     if: always()
     steps:
       - name: All tests ok
-        if:  {% raw %}${{ success() || !contains(needs.*.result, 'failure') }}{% endraw %}
+        if: {% raw %}${{ success() || !contains(needs.*.result, 'failure') }}{% endraw %}
         run: exit 0
       - name: One or more tests failed
-        if:  {% raw %}${{ contains(needs.*.result, 'failure') }}{% endraw %}
+        if: {% raw %}${{ contains(needs.*.result, 'failure') }}{% endraw %}
         run: exit 1
 
       - name: debug-print
         if: always()
         run: |
-          echo "toJSON(needs) =  {% raw %}${{ toJSON(needs) }}{% endraw %}"
-          echo "toJSON(needs.*.result) =  {% raw %}${{ toJSON(needs.*.result) }}{% endraw %}"
+          echo "toJSON(needs) = {% raw %}${{ toJSON(needs) }}{% endraw %}"
+          echo "toJSON(needs.*.result) = {% raw %}${{ toJSON(needs.*.result) }}{% endraw %}"

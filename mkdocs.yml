@@ -10,68 +10,68 @@ validation:
   unrecognized_links: warn
 
 nav:
-- Home:
-  - Overview: index.md
-  - License: license.md
-- Author's website: https://kenbrewer.com/
+  - Home:
+      - Overview: index.md
+      - License: license.md
+  - Author's website: https://kenbrewer.com/
 
 theme:
   name: material
   icon:
     logo: material/currency-sign
   features:
-  - content.action.edit
-  - content.action.view
-  - content.code.annotate
-  - content.code.copy
-  - content.tooltips
-  - navigation.footer
-  - navigation.indexes
-  - navigation.sections
-  - navigation.tabs
-  - navigation.tabs.sticky
-  - navigation.top
-  - search.highlight
-  - search.suggest
-  - toc.follow
+    - content.action.edit
+    - content.action.view
+    - content.code.annotate
+    - content.code.copy
+    - content.tooltips
+    - navigation.footer
+    - navigation.indexes
+    - navigation.sections
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.top
+    - search.highlight
+    - search.suggest
+    - toc.follow
   palette:
-  - media: "(prefers-color-scheme)"
-    toggle:
-      icon: material/brightness-auto
-      name: Switch to light mode
-  - media: "(prefers-color-scheme: light)"
-    scheme: default
-    primary: purple
-    accent: blue-grey
-    toggle:
-      icon: material/weather-sunny
-      name: Switch to dark mode
-  - media: "(prefers-color-scheme: dark)"
-    scheme: slate
-    primary: blurple
-    accent: blue-grey
-    toggle:
-      icon: material/weather-night
-      name: Switch to system preference
+    - media: "(prefers-color-scheme)"
+      toggle:
+        icon: material/brightness-auto
+        name: Switch to light mode
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: purple
+      accent: blue-grey
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: blurple
+      accent: blue-grey
+      toggle:
+        icon: material/weather-night
+        name: Switch to system preference
 
 markdown_extensions:
-- admonition
-- callouts
-- pymdownx.emoji
-- pymdownx.magiclink
-- pymdownx.snippets:
-    check_paths: true
-- pymdownx.superfences
-- pymdownx.tabbed
-- pymdownx.tasklist
-- toc:
-    permalink: "¤"
+  - admonition
+  - callouts
+  - pymdownx.emoji
+  - pymdownx.magiclink
+  - pymdownx.snippets:
+      check_paths: true
+  - pymdownx.superfences
+  - pymdownx.tabbed
+  - pymdownx.tasklist
+  - toc:
+      permalink: "¤"
 
 extra:
   social:
-  - icon: fontawesome/brands/github
-    link: https://github.com/kenibrewer
-  - icon: fontawesome/brands/twitter
-    link: https://twitter.com/kenibrewer
-  - icon: fontawesome/brands/linkedin
-    link: https://linkedin.com/in/kenibrewer
+    - icon: fontawesome/brands/github
+      link: https://github.com/kenibrewer
+    - icon: fontawesome/brands/twitter
+      link: https://twitter.com/kenibrewer
+    - icon: fontawesome/brands/linkedin
+      link: https://linkedin.com/in/kenibrewer

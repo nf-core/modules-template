@@ -8,16 +8,16 @@ trim_trailing_whitespace = true
 indent_size = 4
 indent_style = space
 
-[*.{yml,yaml,cff}]
+[*.{md,yml,yaml,cff}]
 indent_size = 2
 
-[*.{md}]
+[{.copier-answers.yml,docs/*.md}]
 indent_size = 4
 
-[*.{yml,yaml,cff}.jinja]
+[*.{md,yml,yaml,cff}.jinja]
 indent_size = 2
 
-[*.{md}.jinja]
+[{docs/*.md}.jinja]
 indent_size = 4
 
 [*.nf.test]
