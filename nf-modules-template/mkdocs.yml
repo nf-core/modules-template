@@ -1,8 +1,8 @@
-site_name: "nf-modules-template"
-site_description: "Copier template for an nf-core modules repository"
-site_url: "https://kenibrewer.github.io/nf-modules-template"
-repo_url: "https://github.com/kenibrewer/nf-modules-template"
-repo_name: "kenibrewer/nf-modules-template"
+site_name: "{{ org_name }}/{{ repo_name }}"
+site_description: "{{ description }}"
+site_url: "https://{{ org_name }}.github.io/{{ repo_name }}"
+repo_url: "https://github.com/{{ org_name }}/{{ repo_name }}"
+repo_name: "{{ org_name }}/{{ repo_name }}"
 
 validation:
   omitted_files: warn
@@ -11,14 +11,7 @@ validation:
 
 nav:
 - Home:
-  - Overview: index.md
-  - License: license.md
-- Usage:
-  - Requirements: requirements.md
-  - Generating a project: generate.md
-  - Working on a project: work.md
-  - Updating a project: update.md
-- Author's website: https://kenibrewer.com/
+  - Overview: ../README.md
 
 theme:
   name: material
@@ -71,12 +64,3 @@ markdown_extensions:
 - pymdownx.tasklist
 - toc:
     permalink: "¤"
-
-extra:
-  social:
-  - icon: fontawesome/brands/github
-    link: https://github.com/kenibrewer
-  - icon: fontawesome/brands/twitter
-    link: https://twitter.com/kenibrewer
-  - icon: fontawesome/brands/linkedin
-    link: https://linkedin.com/in/kenibrewer

@@ -1,0 +1,5 @@
+copier
+markdown-callouts
+mkdocs
+mkdocs-material
+ruff
