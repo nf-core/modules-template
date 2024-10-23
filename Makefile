@@ -6,7 +6,7 @@ clean:
 	@cd demo && (git rm -rf . || true ) && git clean -fxd
 
 demo: clean
-	@copier copy --data-file tests/demo-answers.yml --defaults . demo
+	@copier copy --vcs-ref=HEAD --data-file tests/demo-answers.yml --defaults . demo
 
 commit-demo: demo
 	@if [ -n "$$(git status --porcelain)" ]; then \

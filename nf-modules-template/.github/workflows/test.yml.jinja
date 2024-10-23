@@ -6,14 +6,6 @@ on:
     types: [checks_requested]
     branches: [{{ default_branch }}]
   workflow_dispatch:
-    inputs:
-      runners:
-        description: "Runners to test on"
-        type: choice
-        options:
-          - "ubuntu-latest"
-          - "self-hosted"
-        default: "self-hosted"
 
 # Cancel if a newer run is started
 concurrency:
@@ -93,8 +85,8 @@ jobs:
       - name: Fetch module tags
         id: tags
         run: |
-          echo modules=$(echo ' {% raw %}${{ steps.filter.outputs.changes }}{% endraw %}' | jq -c '. | map(select(contains("modules"))) | map(gsub("modules/"; ""))') >> $GITHUB_OUTPUT
-          echo subworkflows=$(echo ' {% raw %}${{ steps.filter.outputs.changes }}{% endraw %}' | jq '. | map(select(contains("subworkflow"))) | map(gsub("subworkflows/"; ""))') >> $GITHUB_OUTPUT
+          echo modules=$(echo '{% raw %}${{ steps.filter.outputs.changes }}{% endraw %}' | jq -c '. | map(select(contains("modules"))) | map(gsub("modules/"; ""))') >> $GITHUB_OUTPUT
+          echo subworkflows=$(echo '{% raw %}${{ steps.filter.outputs.changes }}{% endraw %}' | jq '. | map(select(contains("subworkflow"))) | map(gsub("subworkflows/"; ""))') >> $GITHUB_OUTPUT
 
       - name: debug
         run: |
@@ -127,8 +119,8 @@ jobs:
       - name: Separate modules and subworkflows
         id: outputs
         run: |
-          echo modules=$(echo ' {% raw %}${{ steps.list.outputs.components }}{% endraw %}' | jq -c '. | map(select(contains("modules"))) | map(gsub("modules/{{ org_short_name}}/"; ""))') >> $GITHUB_OUTPUT
-          echo subworkflows=$(echo ' {% raw %}${{ steps.list.outputs.components }}{% endraw %}' | jq '. | map(select(contains("subworkflows"))) | map(gsub("subworkflows/{{ org_short_name}}/"; ""))') >> $GITHUB_OUTPUT
+          echo modules=$(echo '{% raw %}${{ steps.list.outputs.components }}{% endraw %}' | jq -c '. | map(select(contains("modules"))) | map(gsub("modules/{{ short_org_name}}/"; ""))') >> $GITHUB_OUTPUT
+          echo subworkflows=$(echo '{% raw %}${{ steps.list.outputs.components }}{% endraw %}' | jq '. | map(select(contains("subworkflows"))) | map(gsub("subworkflows/{{ short_org_name}}/"; ""))') >> $GITHUB_OUTPUT
 
       - name: debug
         run: |
@@ -145,8 +137,8 @@ jobs:
       matrix:
         tags:
           [
-            " {% raw %}${{ fromJson(needs.pytest-changes.outputs.modules) }}{% endraw %}",
-            " {% raw %}${{ fromJson(needs.nf-test-changes.outputs.modules) }}{% endraw %}",
+            "{% raw %}${{ fromJson(needs.pytest-changes.outputs.modules) }}{% endraw %}",
+            "{% raw %}${{ fromJson(needs.nf-test-changes.outputs.modules) }}{% endraw %}",
           ]
     steps:
       - uses: actions/checkout@eef61447b9ff4aafe5dcd4e0bbf5d482be7e7871 # v4
@@ -191,8 +183,8 @@ jobs:
       matrix:
         tags:
           [
-            " {% raw %}${{ fromJson(needs.pytest-changes.outputs.subworkflows) }}{% endraw %}",
-            " {% raw %}${{ fromJson(needs.nf-test-changes.outputs.subworkflows) }}{% endraw %}",
+            "{% raw %}${{ fromJson(needs.pytest-changes.outputs.subworkflows) }}{% endraw %}",
+            "{% raw %}${{ fromJson(needs.nf-test-changes.outputs.subworkflows) }}{% endraw %}",
           ]
     steps:
       - uses: actions/checkout@eef61447b9ff4aafe5dcd4e0bbf5d482be7e7871 # v4
@@ -227,7 +219,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        tags: [" {% raw %}${{ fromJson(needs.pytest-changes.outputs.tags) }}{% endraw %}"]
+        tags: ["{% raw %}${{ fromJson(needs.pytest-changes.outputs.tags) }}{% endraw %}"]
         profile: [conda, docker, singularity]
         exclude:
           - tags: nf-test
@@ -261,7 +253,7 @@ jobs:
       - name: Setup Nextflow {% raw %}${{ matrix.NXF_VER }}{% endraw %}
         uses: nf-core/setup-nextflow@v2
         with:
-          version: " {% raw %}${{ matrix.NXF_VER }}{% endraw %}"
+          version: "{% raw %}${{ matrix.NXF_VER }}{% endraw %}"
 
       - name: Setup apptainer
         if: matrix.profile == 'singularity'
@@ -293,7 +285,7 @@ jobs:
         # TODO Only run if the tag includes `sentieon`
         if: env.SENTIEON_ENCRYPTION_KEY != null && env.SENTIEON_LICENSE_MESSAGE != null
         run: |
-          nextflow secrets set SENTIEON_AUTH_DATA $(python3 tests/modules/nf-core/sentieon/license_message.py encrypt --key "{% raw %}${{ secrets.SENTIEON_ENCRYPTION_KEY }}" --message " ${{ secrets.SENTIEON_LICENSE_MESSAGE }}{% endraw %}")
+          nextflow secrets set SENTIEON_AUTH_DATA $(python3 tests/modules/nf-core/sentieon/license_message.py encrypt --key "{% raw %}${{ secrets.SENTIEON_ENCRYPTION_KEY }}" --message "${{ secrets.SENTIEON_LICENSE_MESSAGE }}{% endraw %}")
 
       # Test the module
       - name: Run pytest-workflow
@@ -337,8 +329,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        path: [" {% raw %}${{ fromJson(needs.nf-test-changes.outputs.paths) }}{% endraw %}"]
-        profile: [conda, docker_self_hosted, singularity]
+        path: ["{% raw %}${{ fromJson(needs.nf-test-changes.outputs.paths) }}{% endraw %}"]
+        profile: [conda, docker, singularity]
         exclude:
           - path: modules/nf-core/nf-test
     env:
@@ -411,13 +403,6 @@ jobs:
           SENTIEON_LICSRVR_IP: {% raw %}${{ secrets.SENTIEON_LICSRVR_IP }}{% endraw %}
           SENTIEON_AUTH_MECH: "GitHub Actions - token"
         run: |
-          # use "docker_self_hosted" if it runs on self-hosted runner and matrix.profile=docker
-          if [ " {% raw %}${{ matrix.profile }}{% endraw %}" == "docker" ]; then
-            PROFILE="docker_self_hosted"
-          else
-            PROFILE= {% raw %}${{ matrix.profile }}{% endraw %}
-          fi
-
           NFT_WORKDIR=~ \
           nf-test test \
             --profile= {% raw %}${{ matrix.profile }}{% endraw %} \
