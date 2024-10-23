@@ -75,6 +75,16 @@ copyright_license:
     - PostgreSQL License
     - The Unlicense
     - zlib License
+copyright_year:
+  type: int
+  help: The year(s) of the copyright
+  required: true
+  placeholder: "2024"
+copyright_holder:
+  type: str
+  help: The name of the copyright holder
+  required: true
+  placeholder: Author or Organization Name
 
 # Copier configuration options
 _subdirectory: nf-modules-template

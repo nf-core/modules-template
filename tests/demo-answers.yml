@@ -1,6 +1,8 @@
-description: An nf-core modules repository hosting Nextflow DSL2 modules for the kenibrewer
-  organization.
+description: A demo nf-core style modules library generated using kenibrewer/nf-modules-template.
 org_name: kenibrewer
 repo_name: nf-modules-demo
 short_org_name: kbrewer
 default_branch: main
+copyright_license: MIT License
+copyright_holder: Ken Brewer
+copyright_year: "2024"
