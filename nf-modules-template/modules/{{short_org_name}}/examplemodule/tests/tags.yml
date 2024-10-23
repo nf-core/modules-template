@@ -1,0 +1,2 @@
+fastqc:
+  - modules/{{ short_org_name}}/examplemodule/**
