@@ -1,22 +1,39 @@
 # Questions for copier CLI
-org_name:
+repo_host:
   type: str
-  help: What is your organization name? (This should match your github user/org path.)
+  help: What is the host of your code repository?
+  default: https://github.com
+  choices:
+    GitHub: "https://github.com"
+    Gitlab: "https://gitlab.com"
+    Bitbucket: "https://bitbucket.com"
+
+repo_org_name:
+  type: str
+  help: What is your organization/user name for your code respositories. (e.g. `nf-core` in "https://github.com/nf-core/modules")
   placeholder: demo-org
   required: true
   validator: >-
-    {% if not (org_name | regex_search('^[a-zA-Z][a-zA-Z0-9\-_]+$')) %}
-    org_name must start with a letter, followed one or more letters, digits, underscores or dashes.
+    {% if not (repo_org_name | regex_search('^[a-zA-Z][a-zA-Z0-9\-_]+$')) %}
+    repo_org_name must start with a letter, followed one or more letters, digits, underscores or dashes.
     {% endif %}
+
+ci:
+  type: str
+  help: What CI provider will you use for testing?
+  default: "github"
+  choices:
+    Github Actions: github
+    None: none
 
 short_org_name:
   type: str
-  help: What is your abbreviated org name? (defines the path for your modules e.g. `modules/<short_org_name>/tool`)
+  help: What is your abbreviated org name? (defines the path for your modules e.g. `modules/<short_org_name>/<module_name>`)
   placeholder: demo-org
   required: true
   validator: >-
-    {% if not (org_name | regex_search('^[a-z]+$')) %}
-    short_org_name must be all lowercase letters.
+    {% if not (org_name | regex_search('^[a-z\-_]+$')) %}
+    short_org_name must be all lowercase letters, dashes, and underscores.
     {% endif %}
 
 repo_name:
