@@ -1,8 +1,8 @@
 site_name: "nf-modules-template"
 site_description: "Copier template for an nf-core modules repository"
-site_url: "https://kenibrewer.github.io/nf-modules-template"
-repo_url: "https://github.com/kenibrewer/nf-modules-template"
-repo_name: "kenibrewer/nf-modules-template"
+site_url: "https://nf-core.github.io/modules-template"
+repo_url: "https://github.com/nf-core/modules-template"
+repo_name: "nf-core/modules-template"
 
 validation:
   omitted_files: warn
@@ -13,7 +13,6 @@ nav:
   - Home:
       - Overview: index.md
       - License: license.md
-  - Author's website: https://kenbrewer.com/
 
 theme:
   name: material
@@ -70,8 +69,8 @@ markdown_extensions:
 extra:
   social:
     - icon: fontawesome/brands/github
-      link: https://github.com/kenibrewer
-    - icon: fontawesome/brands/twitter
-      link: https://twitter.com/kenibrewer
+      link: https://github.com/nf-core/modules-template
+    - icon: fontawesome/brands/x-twitter
+      link: https://x.com/nf_core
     - icon: fontawesome/brands/linkedin
-      link: https://linkedin.com/in/kenibrewer
+      link: https://www.linkedin.com/company/nf-core/posts/
