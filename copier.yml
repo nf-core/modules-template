@@ -32,7 +32,7 @@ short_org_name:
   placeholder: demo-org
   required: true
   validator: >-
-    {% if not (org_name | regex_search('^[a-z\-_]+$')) %}
+    {% if not (short_org_name | regex_search('^[a-z\-_]+$')) %}
     short_org_name must be all lowercase letters, dashes, and underscores.
     {% endif %}
 
