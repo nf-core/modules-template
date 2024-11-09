@@ -1,5 +1,6 @@
 description: A demo nf-core style modules library generated using nf-core/modules-template.
-org_name: kenibrewer
+repo_host: "https://github.com"
+repo_org_name: kenibrewer
 repo_name: nf-modules-demo
 short_org_name: kbrewer
 default_branch: main

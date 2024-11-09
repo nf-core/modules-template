@@ -14,7 +14,7 @@ commit-demo: demo
 		exit 1; \
 	fi
 	@cd demo && bash .project_init.sh
-	@cd demo && git add . && git commit -m "🧹 chore: update demo from kenibrewer/nf-modules-template@${current_commit}"
+	@cd demo && git add . && git commit -m "🧹 chore: update demo from nf-core/nf-modules-template@${current_commit}"
 
 docs:
 	@.venv/bin/mkdocs serve
