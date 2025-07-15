@@ -1,3 +1,27 @@
+## 0.2.0 (2025-07-15)
+
+### ✨ Features
+
+- add repo host and ci customizability
+- add repo host and ci customizability
+- add repo host and ci customizability
+
+### 🐛🚑️ Fixes
+
+- correct repo name in README
+
+### 💚👷 CI & Build
+
+- fix nf-test ci tags
+
+### 📸 Snapshots
+
+- remove snapshot stub tests in examplemodule
+
+### 🚀 Deployments
+
+- migrate project to nf-core
+
 ## 0.1.0 (2024-10-22)
 
 ### ✨ Features
