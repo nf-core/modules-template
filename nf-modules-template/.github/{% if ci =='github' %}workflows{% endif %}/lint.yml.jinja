@@ -5,10 +5,10 @@ on:
       # https://docs.renovatebot.com/key-concepts/automerge/#branch-vs-pr-automerging
       - "renovate/**" # branches Renovate creates
   pull_request:
-    branches: [master]
+    branches: [{{ default_branch }}]
   merge_group:
     types: [checks_requested]
-    branches: [master]
+    branches: [{{ default_branch }}]
   workflow_dispatch:
     inputs:
       runners:
@@ -21,19 +21,19 @@ on:
 
 # Cancel if a newer run is started
 concurrency:
-  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  group: {% raw %}${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}{% endraw %}
   cancel-in-progress: true
 
 env:
-  NXF_SINGULARITY_CACHEDIR: ${{ github.workspace }}/.singularity
-  NXF_SINGULARITY_LIBRARYDIR: ${{ github.workspace }}/.singularity
-  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  NXF_SINGULARITY_CACHEDIR: {% raw %}${{ github.workspace }}/.singularity{% endraw %}
+  NXF_SINGULARITY_LIBRARYDIR: {% raw %}${{ github.workspace }}/.singularity{% endraw %}
+  GITHUB_TOKEN: {% raw %}${{ secrets.GITHUB_TOKEN }}{% endraw %}
   # renovate: datasource=github-releases depName=nextflow/nextflow versioning=semver
   NXF_VER: "24.10.1"
 
 jobs:
   pre-commit:
-    runs-on: ${{ github.event.inputs.runners || github.run_number > 1 && 'ubuntu-latest' || 'self-hosted' }}
+    runs-on: {% raw %}${{ github.event.inputs.runners || github.run_number > 1 && 'ubuntu-latest' || 'self-hosted' }}{% endraw %}
     steps:
       - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5
       - uses: actions/setup-python@e797f83bcb11b83ae66e0230d6156d7c80228e7c # v6
@@ -49,15 +49,15 @@ jobs:
   nf-core-changes:
     name: nf-core-changes
     runs-on:
-      - runs-on=${{ github.run_id }}-nf-core-changes
+      - {% raw %}runs-on=${{ github.run_id }}-nf-core-changes{% endraw %}
       - runner=4cpu-linux-x64
       - image=ubuntu22-full-x64
     outputs:
       # https://github.com/dorny/paths-filter?tab=readme-ov-file#custom-processing-of-changed-files
-      modules: ${{ steps.filter.outputs.modules }}
-      modules_files: ${{ steps.module_names.outputs.result }}
-      subworkflows: ${{ steps.filter.outputs.subworkflows }}
-      subworkflows_files: ${{ steps.subworkflow_names.outputs.result }}
+      modules: {% raw %}${{ steps.filter.outputs.modules }}{% endraw %}
+      modules_files: {% raw %}${{ steps.module_names.outputs.result }}{% endraw %}
+      subworkflows: {% raw %}${{ steps.filter.outputs.subworkflows }}{% endraw %}
+      subworkflows_files: {% raw %}${{ steps.subworkflow_names.outputs.result }}{% endraw %}
     steps:
       - name: Clean workspace
         run: |
@@ -73,9 +73,9 @@ jobs:
         with:
           filters: |
             modules:
-              - added|modified: 'modules/nf-core/**'
+              - added|modified: 'modules/{{ short_org_name }}/**'
             subworkflows:
-              - added|modified: 'subworkflows/nf-core/**'
+              - added|modified: 'subworkflows/{{ short_org_name }}/**'
           token: ""
           list-files: "json"
 
@@ -84,10 +84,10 @@ jobs:
         id: module_names
         with:
           script: |
-            return [...new Set(${{ steps.filter.outputs.modules_files }}
+            {% raw %}return [...new Set(${{ steps.filter.outputs.modules_files }}{% endraw %}
               .filter(x => x.endsWith('main.nf'))
               .map(path => path
-                .replace('modules/nf-core/', '')
+                .replace('modules/{{ short_org_name }}/', '')
                 .replace(/\/main\.nf$/, '')
               )
             )];
@@ -96,33 +96,33 @@ jobs:
         id: subworkflow_names
         with:
           script: |
-            return [...new Set(${{ steps.filter.outputs.subworkflows_files }}
+            {% raw %}return [...new Set(${{ steps.filter.outputs.subworkflows_files }}{% endraw %}
               .filter(x => x.endsWith('main.nf'))
               .map(path => path
-                .replace('subworkflows/nf-core/', '')
+                .replace('subworkflows/{{ short_org_name }}/', '')
                 .replace(/\/main\.nf$/, '')
               )
             )];
 
       - name: debug
         run: |
-          echo ${{ steps.filter.outputs.modules_files }}
-          echo ${{ steps.module_names.outputs.result }}
-          echo ${{ steps.filter.outputs.subworkflows_files }}
-          echo ${{ steps.subworkflow_names.outputs.result }}
+          echo {% raw %}${{ steps.filter.outputs.modules_files }}{% endraw %}
+          echo {% raw %}${{ steps.module_names.outputs.result }}{% endraw %}
+          echo {% raw %}${{ steps.filter.outputs.subworkflows_files }}{% endraw %}
+          echo {% raw %}${{ steps.subworkflow_names.outputs.result }}{% endraw %}
 
   nf-core-lint-modules:
     runs-on:
-      - runs-on=${{ github.run_id }}-nf-core-lint-modules
+      - {% raw %}runs-on=${{ github.run_id }}-nf-core-lint-modules
       - runner=4cpu-linux-x64
       - image=ubuntu22-full-x64
     name: nf-core lint modules
     needs: nf-core-changes
-    if: ${{ needs.nf-core-changes.outputs.modules_files != '[]' }}
+    if: {% raw %}${{ needs.nf-core-changes.outputs.modules_files != '[]' }}{% endraw %}
     strategy:
       fail-fast: false
       matrix:
-        module: ${{ fromJson(needs.nf-core-changes.outputs.modules_files || '[]') }}
+        module: {% raw %}${{ fromJson(needs.nf-core-changes.outputs.modules_files || '[]') }}{% endraw %}
     steps:
       - name: Clean workspace
         run: |
@@ -138,9 +138,9 @@ jobs:
         id: cache-pip
         with:
           path: ~/.cache/pip
-          key: ${{ runner.os }}-pip
+          key: {% raw %}${{ runner.os }}-pip{% endraw %}
           restore-keys: |
-            ${{ runner.os }}-pip
+            {% raw %}${{ runner.os }}-pip{% endraw %}
 
       - name: Install pip
         run: python -m pip install --upgrade pip
@@ -156,21 +156,21 @@ jobs:
       - name: Install nf-core tools development version
         run: python -m pip install --upgrade --force-reinstall git+https://github.com/nf-core/tools.git@dev
 
-      - name: Lint module ${{ matrix.module }}
-        run: nf-core modules lint ${{ matrix.module }}
+      - name: Lint module {% raw %}${{ matrix.module }}{% endraw %}
+        run: nf-core modules --git-remote {{ repo_host }}/{{ repo_org_name }}/{{ repo_name }}.git lint {% raw %}${{ matrix.module }}{% endraw %}
 
   nf-core-lint-subworkflows:
     runs-on:
-      - runs-on=${{ github.run_id }}-nf-core-lint-subworkflows
+      - {% raw %}runs-on=${{ github.run_id }}-nf-core-lint-subworkflows{% endraw %}
       - runner=4cpu-linux-x64
       - image=ubuntu22-full-x64
     name: nf-core lint subworkflows
     needs: nf-core-changes
-    if: ${{ needs.nf-core-changes.outputs.subworkflows_files != '[]' }}
+    if: {% raw %}${{ needs.nf-core-changes.outputs.subworkflows_files != '[]' }}{% endraw %}
     strategy:
       fail-fast: false
       matrix:
-        subworkflow: ${{ fromJson(needs.nf-core-changes.outputs.subworkflows_files || '[]') }}
+        subworkflow: {% raw %}${{ fromJson(needs.nf-core-changes.outputs.subworkflows_files || '[]') }}{% endraw %}
     steps:
       - name: Clean workspace
         run: |
@@ -188,26 +188,26 @@ jobs:
       - name: Install nf-core tools development version
         run: python -m pip install --upgrade --force-reinstall git+https://github.com/nf-core/tools.git@dev
 
-      - name: Lint subworkflow ${{ matrix.subworkflow }}
-        run: nf-core subworkflows lint ${{ matrix.subworkflow }}
+      - name: Lint subworkflow {% raw %}${{ matrix.subworkflow }}{% endraw %}
+        run: nf-core subworkflows --git-remote {{ repo_host }}/{{ repo_org_name }}/{{ repo_name }}.git lint {% raw %}${{ matrix.subworkflow }}{% endraw %}
 
   confirm-pass-lint:
     runs-on:
-      - runs-on=${{ github.run_id }}-confirm-pass-lint
+      - {% raw %}runs-on=${{ github.run_id }}-confirm-pass-lint{% endraw %}
       - runner=2cpu-linux-x64
       - image=ubuntu22-full-x64
     needs: [nf-core-lint-modules, nf-core-lint-subworkflows]
     if: always()
     steps:
       - name: All tests ok
-        if: ${{ success() || !contains(needs.*.result, 'failure') }}
+        if: {% raw %}${{ success() || !contains(needs.*.result, 'failure') }}{% endraw %}
         run: exit 0
       - name: One or more tests failed
-        if: ${{ contains(needs.*.result, 'failure') }}
+        if: {% raw %}${{ contains(needs.*.result, 'failure') }}{% endraw %}
         run: exit 1
 
       - name: debug-print
         if: always()
         run: |
-          echo "toJSON(needs) = ${{ toJSON(needs) }}"
-          echo "toJSON(needs.*.result) = ${{ toJSON(needs.*.result) }}"
+          echo {% raw %}"toJSON(needs) = ${{ toJSON(needs) }}"{% endraw %}
+          echo {% raw %}"toJSON(needs.*.result) = ${{ toJSON(needs.*.result) }}"{% endraw %}
