@@ -105,3 +105,4 @@ copyright_holder:
 
 # Copier configuration options
 _subdirectory: nf-modules-template
+_preserve_symlinks: true
