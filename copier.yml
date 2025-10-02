@@ -57,7 +57,7 @@ default_branch:
 copyright_license:
   type: str
   help: Your project's license
-  default: ISC License
+  default: MIT License
   choices:
     - Academic Free License v3.0
     - Apache License 2.0
