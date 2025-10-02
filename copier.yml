@@ -92,8 +92,8 @@ copyright_license:
     - PostgreSQL License
     - The Unlicense
     - zlib License
-copyright_year:
-  type: int
+copyright_date:
+  type: str
   help: The year(s) of the copyright
   required: true
   placeholder: "2024"
