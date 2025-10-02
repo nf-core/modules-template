@@ -51,16 +51,57 @@
             "type": "array",
             "description": "Input channels for the module",
             "items": {
-                "type": "array",
-                "items": { "$ref": "#/definitions/elementProperties" }
+                "oneOf": [{
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "patternProperties": {
+                            ".*": {
+                                "$ref": "#/definitions/elementProperties"
+                            }
+                        }
+                    }
+                },
+                {
+                    "type": "object",
+                    "patternProperties": {
+                        ".*": {
+                            "$ref": "#/definitions/elementProperties"
+                        }
+                    }}
+                ]
             }
         },
         "output": {
             "type": "object",
             "description": "Output channels for the module",
-            "items": {
-                "type": "object",
-                "items": { "$ref": "#/definitions/elementProperties" }
+            "patternProperties": {
+                ".*": {
+                    "type": "array",
+                    "items": {
+                        "oneOf": [
+                            {
+                                "type": "object",
+                                "patternProperties": {
+                                    ".*": {
+                                        "$ref": "#/definitions/elementProperties"
+                                    }
+                                }
+                            },
+                            {
+                                "type": "array",
+                                "items": {
+                                    "type": "object",
+                                    "patternProperties": {
+                                        ".*": {
+                                            "$ref": "#/definitions/elementProperties"
+                                        }
+                                    }
+                                }
+                            }
+                        ]
+                    }
+                }
             }
         },
         "tools": {
