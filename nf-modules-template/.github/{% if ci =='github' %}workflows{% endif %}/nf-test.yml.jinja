@@ -71,7 +71,7 @@ jobs:
         env:
           NFT_VER: {% raw %}${{ env.NFT_VER }}{% endraw %}
         with:
-          max_shards: 15
+          max_shards: 5
           paths: {% raw %}"${{ join(fromJson(steps.list.outputs.components ), ' ') }}"{% endraw %}
 
       - name: debug
