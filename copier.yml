@@ -25,6 +25,7 @@ ci:
   choices:
     Github Actions: github
     None: none
+  when: "{{ repo_host == 'https://github.com' }}"
 
 short_org_name:
   type: str
