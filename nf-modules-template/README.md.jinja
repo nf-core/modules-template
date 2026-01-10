@@ -244,7 +244,7 @@ Sub-workflows are stored in the [`subworkflows/`](subworkflows/) directory of th
 "Cross-organisation" sub-workflows are sub-workflows that contain components from both `nf-core/modules` and `{{ repo_org_name }}/{{repo_name}}`.
 They require the version 3.4 (or later) of the `nf-core/tools` package.
 
-### Writing cross-organisation modules and sub-workflows
+### Writing cross-organisation sub-workflows
 
 A reference example exists in the nf-core test repository <https://github.com/nf-core-test/modules>.
 
@@ -333,7 +333,20 @@ Pipelines need a few modifications to work seamlessly with cross-organisation su
       profile "test"
    ```
 
-   It also meeds to refers to the version 0.0.7 or later of the `nft-utils` plugin (`load "nft-utils@` line).
+   It also needs to refers to the version 0.0.7 or later of the `nft-utils` plugin (`load "nft-utils@` line).
+
+3. So does `.gitattributes` (to automatically collapse files changed in the sanger-tol components)
+
+   ```diff
+   --- a/.gitattributes
+   +++ b/.gitattributes
+   @@ -2,3 +2,5 @@
+   *.nf.test linguist-language=nextflow
+   modules/nf-core/** linguist-generated
+   subworkflows/nf-core/** linguist-generated
+   +modules/{{short_org_name}}/** linguist-generated
+   +subworkflows/{{short_org_name}}/** linguist-generated
+   ```
 
 ## Citation
 
