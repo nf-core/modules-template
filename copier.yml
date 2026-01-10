@@ -47,7 +47,7 @@ description:
   type: str
   help: What is the description of your modules library?
   required: true
-  default: An nf-core modules repository hosting Nextflow DSL2 modules for the {{ org_name }} organization.
+  default: An nf-core modules repository hosting Nextflow DSL2 modules for the {{ repo_org_name }} organization.
 
 default_branch:
   type: str
