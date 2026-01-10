@@ -97,7 +97,7 @@ copyright_date:
   type: str
   help: The year(s) of the copyright
   required: true
-  default: "2025"
+  default: "2026"
 copyright_holder:
   type: str
   help: The name of the copyright holder
