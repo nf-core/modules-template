@@ -1,10 +1,9 @@
-## 0.2.0 (2025-07-15)
+## 0.2.0 (2026-01-13)
 
 ### ✨ Features
 
 - add repo host and ci customizability
-- add repo host and ci customizability
-- add repo host and ci customizability
+- all latest features and capabilities from upstream nf-core/modules
 
 ### 🐛🚑️ Fixes
 
@@ -20,7 +19,7 @@
 
 ### 🚀 Deployments
 
-- migrate project to nf-core
+- migrate repository to nf-core
 
 ## 0.1.0 (2024-10-22)
 
