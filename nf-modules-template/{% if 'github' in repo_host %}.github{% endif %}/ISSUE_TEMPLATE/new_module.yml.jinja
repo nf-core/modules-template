@@ -6,7 +6,8 @@ body:
   - type: checkboxes
     attributes:
       label: Is there an existing module for this?
-      description: This module does not exist yet with the [`nf-core modules list`](https://github.com/nf-core/tools#list-modules) command
+      description: This module does not exist yet with the [`nf-core modules --git-remote {{ repo_host }}/{{ repo_org_name }}/{{repo_name}}.git list`](https://github.com/nf-core/tools#list-modules) command
+
       options:
         - label: I have searched for the existing module
           required: true
