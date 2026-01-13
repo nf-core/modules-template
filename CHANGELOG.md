@@ -1,25 +1,22 @@
-## 0.2.0 (2026-01-13)
+## 1.0.0 (2026-01-14)
 
 ### ✨ Features
 
+- repository now at the nf-core GitHub organisation
 - add repo host and ci customizability
-- all latest features and capabilities from upstream nf-core/modules
+- all latest features and capabilities from upstream nf-core/modules, incl.
+  - support for nf-test
+  - nf-test CI (with sharding) on GitHub
+  - updated JSON schemas for modules and sub-workflows
+  - support for linting with topic channels
+  - updated DevContainer and VSCode support
+  - updated linter configuration (prek, etc)
+  - issue templates (for GitHub users)
 
 ### 🐛🚑️ Fixes
 
 - correct repo name in README
-
-### 💚👷 CI & Build
-
-- fix nf-test ci tags
-
-### 📸 Snapshots
-
-- remove snapshot stub tests in examplemodule
-
-### 🚀 Deployments
-
-- migrate repository to nf-core
+- placeholder and template values for copier
 
 ## 0.1.0 (2024-10-22)
 
